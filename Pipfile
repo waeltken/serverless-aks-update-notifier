@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+azure-functions = "*"
+opencensus-ext-azure = "*"
+azure-mgmt-resource = "*"
+azure-mgmt-containerservice = "*"
+azure-mgmt-kubernetesconfiguration = "*"
+azure-core = "*"
+azure-cli = "*"
+
+[dev-packages]
+black = "*"
+
+[requires]
+python_version = "3.9"
+python_full_version = "3.9.16"
