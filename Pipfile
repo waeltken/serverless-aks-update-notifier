@@ -6,14 +6,14 @@ name = "pypi"
 [packages]
 azure-functions = "*"
 opencensus-ext-azure = "*"
-azure-mgmt-resource = "*"
+azure-mgmt-resourcegraph = "*"
 azure-mgmt-containerservice = "*"
-azure-mgmt-kubernetesconfiguration = "*"
-azure-core = "*"
-azure-cli = "*"
+azure-mgmt-subscription = "*"
+semver = "*"
 
 [dev-packages]
 black = "*"
+ipykernel = "*"
 
 [requires]
 python_version = "3.9"
