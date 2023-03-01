@@ -72,6 +72,8 @@ def main(timer: func.TimerRequest) -> None:
     argResults = argClient.resources(argQuery)
 
     clusters = [Cluster(cluster) for cluster in argResults.data]
+    logging.info(f"Found {len(clusters)} clusters")
+    logging.info(f"{clusters}")
     for cluster in clusters:
         if cluster.delta > 2:
             logging.info(f"Cluster {cluster} is about to run out of date")
