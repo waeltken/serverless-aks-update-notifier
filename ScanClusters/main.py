@@ -1,4 +1,5 @@
 import logging
+import structlog
 import semver
 
 from functools import cache
@@ -11,7 +12,8 @@ import azure.mgmt.resourcegraph as arg
 
 import azure.functions as func
 
-logging.root.addHandler(AzureLogHandler())
+logging.getLogger(__name__).addHandler(AzureLogHandler())
+log = structlog.get_logger(__name__)
 
 
 @cache
@@ -72,15 +74,30 @@ def main(timer: func.TimerRequest) -> None:
     argResults = argClient.resources(argQuery)
 
     clusters = [Cluster(cluster) for cluster in argResults.data]
-    logging.info(f"Found {len(clusters)} clusters")
-    logging.info(f"{clusters}")
+    log.info(f"Found {len(clusters)} clusters")
+    log.info(f"{clusters}")
     for cluster in clusters:
         if cluster.delta > 2:
-            logging.info(f"Cluster {cluster} is about to run out of date")
+            log.warning(
+                f"Cluster {cluster} is about to run out of date",
+                id=cluster.id,
+                region=cluster.region,
+                version=cluster.version,
+            )
         elif cluster.delta > 3:
-            logging.warning(f"Cluster {cluster} is out of date")
+            log.warning(
+                f"Cluster {cluster} is out of date",
+                id=cluster.id,
+                region=cluster.region,
+                version=cluster.version,
+            )
         else:
-            logging.debug(f"Cluster {cluster} is up to date")
+            log.info(
+                f"Cluster {cluster} is up to date",
+                id=cluster.id,
+                region=cluster.region,
+                version=str(cluster.version),
+            )
 
 
 # insert main function here

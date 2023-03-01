@@ -182,6 +182,7 @@ semver==2.13.0
 six==1.16.0
 sshtunnel==0.1.5
 stack-data==0.6.2
+structlog==22.3.0
 tabulate==0.9.0
 tomli==2.0.1
 tornado==6.2

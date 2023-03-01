@@ -10,6 +10,7 @@ azure-mgmt-resourcegraph = "*"
 azure-mgmt-containerservice = "*"
 azure-mgmt-subscription = "*"
 semver = "*"
+structlog = "*"
 
 [dev-packages]
 black = "*"
