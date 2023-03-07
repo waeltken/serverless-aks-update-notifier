@@ -77,7 +77,7 @@ def main(timer: func.TimerRequest) -> None:
     log.info(f"Found {len(clusters)} clusters")
     log.info(f"{clusters}")
     for cluster in clusters:
-        if cluster.delta > 2:
+        if cluster.delta == 2:
             log.warning(
                 f"Cluster {cluster} is about to run out of date",
                 id=cluster.id,
