@@ -84,7 +84,7 @@ def main(timer: func.TimerRequest) -> None:
                 region=cluster.region,
                 version=cluster.version,
             )
-        elif cluster.delta > 3:
+        elif cluster.delta > 2:
             log.warning(
                 f"Cluster {cluster} is out of date",
                 id=cluster.id,
