@@ -16,7 +16,7 @@ logging.getLogger(__name__).addHandler(AzureLogHandler())
 log = structlog.get_logger(__name__)
 
 
-app = func.AzureFunctionApp()
+app = func.FunctionApp()
 
 @cache
 def latest_version(region="westeurope"):
@@ -64,7 +64,7 @@ class Cluster:
     def delta(self):
         return latest_version(self.region).minor - self.version.minor
 
-@app.timer("*/15 * * * * *")
+@app.schedule(schedule="*/15 * * * * *", arg_name="timer", run_on_startup=True, use_monitor=True)
 @app.function_name(name="ClusterVersionChecker")
 def main(timer: func.TimerRequest) -> None:
     latest_version.cache_clear()
