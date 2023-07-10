@@ -16,6 +16,8 @@ logging.getLogger(__name__).addHandler(AzureLogHandler())
 log = structlog.get_logger(__name__)
 
 
+app = func.AzureFunctionApp()
+
 @cache
 def latest_version(region="westeurope"):
     """Get the latest version of Kubernetes available in a region."""
@@ -62,7 +64,7 @@ class Cluster:
     def delta(self):
         return latest_version(self.region).minor - self.version.minor
 
-
+@app.timer("*/15 * * * * *")
 def main(timer: func.TimerRequest) -> None:
     latest_version.cache_clear()
     credential = DefaultAzureCredential()
