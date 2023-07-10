@@ -65,6 +65,7 @@ class Cluster:
         return latest_version(self.region).minor - self.version.minor
 
 @app.timer("*/15 * * * * *")
+@app.function_name(name="ClusterVersionChecker")
 def main(timer: func.TimerRequest) -> None:
     latest_version.cache_clear()
     credential = DefaultAzureCredential()
